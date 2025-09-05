@@ -15,12 +15,11 @@ public class BreweryClient {
   // TODO CONFIGURE THE EXTRA SLASH
   public final String BEER_PATH_V1 = "/api/v1/beer";
   private final RestTemplate restTemplate;
+  private String apiHost;
 
   public BreweryClient(RestTemplateBuilder restTemplatebBuilder) {
     this.restTemplate = restTemplatebBuilder.build();
   }
-
-  private String apiHost;
 
   public void setApiHost(String apiHost) {
     this.apiHost = apiHost;

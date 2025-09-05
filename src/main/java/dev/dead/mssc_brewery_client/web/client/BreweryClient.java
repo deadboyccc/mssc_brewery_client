@@ -9,12 +9,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import dev.dead.mssc_brewery_client.web.model.BeerDto;
+import dev.dead.mssc_brewery_client.web.model.CustomerDto;
 
 @Component
 @ConfigurationProperties(value = "dead.brewery", ignoreUnknownFields = false)
 public class BreweryClient {
   // TODO CONFIGURE THE EXTRA SLASH
   public final String BEER_PATH_V1 = "/api/v1/beer";
+  public final String CUSTOMER_PATH_V1 = "/api/v1/customer";
   private final RestTemplate restTemplate;
   private String apiHost;
 
@@ -36,6 +38,28 @@ public class BreweryClient {
 
   public void updateBeer(UUID beerId, BeerDto beerDto) {
     restTemplate.put(apiHost + BEER_PATH_V1 + "/" + beerId.toString(), beerDto);
+  }
+
+  public void deleteBeer(UUID beerId) {
+    restTemplate.delete(apiHost + BEER_PATH_V1 + "/" + beerId.toString());
+
+  }
+
+  public CustomerDto getCustomerById(UUID customerId) {
+    return restTemplate.getForObject(apiHost + CUSTOMER_PATH_V1 + "/" + customerId.toString(), CustomerDto.class);
+  }
+
+  public URI createNewCustomer(CustomerDto customerDto) {
+    return restTemplate.postForLocation(apiHost + CUSTOMER_PATH_V1, customerDto);
+
+  }
+
+  public void updateCustomer(UUID customerId, CustomerDto customerDto) {
+    restTemplate.put(apiHost + CUSTOMER_PATH_V1 + "/" + customerId.toString(), customerDto);
+  }
+
+  public void deleteCustomer(UUID customerId) {
+    restTemplate.delete(apiHost + CUSTOMER_PATH_V1 + "/" + customerId.toString());
   }
 
 }

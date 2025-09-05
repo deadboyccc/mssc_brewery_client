@@ -1,8 +1,10 @@
 package dev.dead.mssc_brewery_client.web.client;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URI;
+import java.util.Random;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,14 @@ public class BreweryClientTest {
     URI uri = client.createNewBeer(dto);
     System.out.println(uri.toString());
     assertNotNull(uri);
+
+  }
+
+  @Test
+  void testUpdateBeer() {
+    // given
+    BeerDto dto = BeerDto.builder().beerName("New Beer").build();
+    client.updateBeer(UUID.randomUUID(), dto);
 
   }
 }
